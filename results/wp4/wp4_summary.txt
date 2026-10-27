@@ -1,0 +1,132 @@
+==============================================================================
+WP4 / C3 run — 2026-10-16 13:55 | python 3.13.16 | numpy 2.1.3 | pymoo 0.6.2 | CPUs 2 | workers 2
+articles 150 (hard 33, easy 117) | seeds 0..29 (30)
+Phase C runs loaded: 22500 (5 algorithms x 150 articles x 30 seeds)
+
+[C3] Q17 — COMPARATOR SETTINGS (pymoo 0.6.2)
+  NSGA-II
+    pop_size               30
+    n_offsprings           30
+    crossover              TwoPointCrossover (n_points=2, prob=0.9)
+    mutation               BitflipMutation (prob=1.0, prob_var=None -> min(0.5, 1/N) per article; N = 25 here -> 0.0400)
+    duplicate_elimination  DefaultDuplicateElimination
+    repair                 shared repair_solution (cardinality 3)
+    sampling               shared P0 (D-1)
+    selection              TournamentSelection (pressure=2, binary_tournament)
+    survival               RankAndCrowding (crowding: FunctionalDiversity)
+  MOEA/D
+    pop_size               30
+    n_offsprings           30
+    crossover              TwoPointCrossover (n_points=2, prob=0.9)
+    mutation               BitflipMutation (prob=1.0, prob_var=None -> min(0.5, 1/N) per article; N = 25 here -> 0.0400)
+    duplicate_elimination  NoDuplicateElimination
+    repair                 shared repair_solution (cardinality 3)
+    sampling               shared P0 (D-1)
+    weight_vectors         30 uniform (n_partitions=29)
+    n_neighbors            15
+    decomposition          Tchebicheff
+    prob_neighbor_mating   0.9
+  MOPSO
+    implementation         hand-coded binary MOPSO-CD (shared module, numpy only)
+    inertia_w              0.729
+    c1                     1.49445
+    c2                     1.49445
+    v_max                  6.0
+    archive                30 (non-dominated, crowding-pruned)
+    leader                 binary tournament on crowding distance
+    pbest                  Pareto dominance; mutual non-dominance -> new with p 0.5
+    transfer               sigmoid (S-shaped), bit = 1 if U < sigmoid(x)
+    repair                 shared repair_solution
+    sampling               shared P0 (D-1)
+  No comparator uses the V-shaped transfer, the external archive of MO-WOA+ or local-search probes.
+
+[C4] Q1 — EVALUATIONS CONSUMED PER RUN (Phase C, all articles)
+  algorithm     mean    min    max  =1480 %  runs <1480
+  MO-WOA      1480.0   1480   1480    100.0           0
+  MO-WOA+     1480.0   1480   1480    100.0           0
+  NSGA-II     1472.5     20   1508      0.6          60
+  MOPSO       1500.0   1500   1500      0.0           0
+  MOEA/D      1500.0   1500   1500      0.0           0
+  hard: MO-WOA 1480.0 [1480, 1480], MO-WOA+ 1480.0 [1480, 1480], NSGA-II 1496.1 [1485, 1500], MOPSO 1500.0 [1500, 1500], MOEA/D 1500.0 [1500, 1500]
+  easy: MO-WOA 1480.0 [1480, 1480], MO-WOA+ 1480.0 [1480, 1480], NSGA-II 1465.9 [20, 1508], MOPSO 1500.0 [1500, 1500], MOEA/D 1500.0 [1500, 1500]
+
+[C4] Q3 — FRONT RECOVERY ON THE 117 EASY ARTICLES (C(N,3) <= 1480), 3510 runs per algorithm
+  algorithm  HV mean  HV min  rec mean  rec min  exact %  visited-lost %  never-visited %  cumu exact %  cov-ext %
+  MO-WOA       83.34   48.49      33.0      5.0      0.9            13.8             85.2          14.8      100.0
+  MO-WOA+      99.90   96.89      95.7     37.5     70.6             0.0             29.4          70.6      100.0
+  NSGA-II      99.96   96.97      98.4     66.7     85.3             0.0             14.7          85.1      100.0
+  MOPSO        99.31   92.51      87.3     37.5     39.0             0.0             61.0          38.7      100.0
+  MOEA/D       98.15   74.32      69.6     18.2      7.8            11.0             81.2          18.8      100.0
+  exact = terminal output contains every true-front point; visited-lost = every true-front point was generated within 1,480 evaluations but not all were kept; never-visited = at least one was never generated.
+  easy articles with exact recovery in all 30 seeds / in no seed:
+    MO-WOA    all seeds   0/117 | no seed 111/117
+    MO-WOA+   all seeds  38/117 | no seed   6/117
+    NSGA-II   all seeds  63/117 | no seed   0/117
+    MOPSO     all seeds  10/117 | no seed  27/117
+    MOEA/D    all seeds   3/117 | no seed  90/117
+
+  hard articles (for reference): MO-WOA HV 79.65, recovery 24.2%, exact 1.5%, MO-WOA+ HV 99.86, recovery 91.9%, exact 41.8%, NSGA-II HV 99.66, recovery 91.4%, exact 42.6%, MOPSO HV 96.62, recovery 60.2%, exact 3.4%, MOEA/D HV 96.67, recovery 54.5%, exact 2.7%
+
+[C5] comparator reruns: 13500 (3 algorithms x 150 articles x 30 seeds)
+
+REPRODUCTION CHECKS (rerun vs Phase C, same article and seed)
+  NSGA-II  n_eval 4500/4500 | terminal HV 4500/4500 | recovery (both tiers) 4500/4500  -> REPRODUCED
+  MOPSO    n_eval 4500/4500 | terminal HV 4500/4500 | recovery (both tiers) 4500/4500  -> REPRODUCED
+  MOEA/D   n_eval 4500/4500 | terminal HV 4500/4500 | recovery (both tiers) 4500/4500  -> REPRODUCED
+
+  check: MO-WOA+ unique candidates per run (WP2 runs) mean 88.3 (WP1: 88.3)
+
+[C7] Q2 — ATTEMPTED vs UNIQUE EVALUATIONS PER RUN, 33 HARD articles (mean [min, max])
+  algorithm                    attempted             unique  unique %  repeats  % of C(N,3) visited  whole space %
+  MO-WOA             1480.0 [1480, 1480]  140.3 [ 115,  163]       9.5   1339.7                  5.3            0.0
+  MO-WOA +A          1480.0 [1480, 1480]  140.3 [ 115,  163]       9.5   1339.7                  5.3            0.0
+  MO-WOA +A+E        1480.0 [1480, 1480]  141.0 [ 115,  179]       9.5   1339.0                  5.3            0.0
+  MO-WOA +A+E+G      1480.0 [1480, 1480]  139.5 [ 111,  165]       9.4   1340.5                  5.3            0.0
+  MO-WOA +A+E+G+V    1480.0 [1480, 1480]   65.4 [  33,  127]       4.4   1414.6                  2.4            0.0
+  MO-WOA+            1480.0 [1480, 1480]  121.6 [  47,  191]       8.2   1358.4                  4.5            0.0
+  NSGA-II            1496.1 [1485, 1500]  546.0 [ 357,  878]      36.5    950.1                 20.0            0.0
+  MOPSO              1500.0 [1500, 1500]  319.4 [ 167,  483]      21.3   1180.6                 11.8            0.0
+  MOEA/D             1500.0 [1500, 1500]  151.1 [  71,  310]      10.1   1348.9                  5.5            0.0
+
+[C7] Q2 — ATTEMPTED vs UNIQUE EVALUATIONS PER RUN, 117 EASY articles (mean [min, max])
+  algorithm                    attempted             unique  unique %  repeats  % of C(N,3) visited  whole space %
+  MO-WOA             1480.0 [1480, 1480]  120.7 [  20,  157]       8.2   1359.3                 38.4            4.2
+  MO-WOA +A          1480.0 [1480, 1480]  120.7 [  20,  157]       8.2   1359.3                 38.4            4.2
+  MO-WOA +A+E        1480.0 [1480, 1480]  121.1 [  20,  176]       8.2   1358.9                 38.5            4.4
+  MO-WOA +A+E+G      1480.0 [1480, 1480]  119.5 [  20,  164]       8.1   1360.5                 38.1            4.2
+  MO-WOA +A+E+G+V    1480.0 [1480, 1480]   42.3 [   9,  106]       2.9   1437.7                 14.4            0.4
+  MO-WOA+            1480.0 [1480, 1480]   78.9 [  19,  165]       5.3   1401.1                 24.7            1.5
+  NSGA-II            1465.9 [  20, 1508]  284.2 [  20,  564]      20.7   1181.7                 68.8           10.7
+  MOPSO              1500.0 [1500, 1500]  182.1 [  18,  378]      12.1   1317.9                 47.3            2.8
+  MOEA/D             1500.0 [1500, 1500]   92.6 [  16,  200]       6.2   1407.4                 27.6            0.6
+  attempted = candidates generated and counted against the budget (repeats included); unique = distinct 3-sentence subsets among them; no algorithm caches evaluations (every generated candidate is a lookup in the same enumerated table and is counted once per generation).
+
+[C7] Q3 — EASY ARTICLES: exact terminal recovery by share of the feasible set visited
+  algorithm  space visited %  exact | whole space  exact | not whole
+  MO-WOA                38.4         6.7% (n=149)      0.7% (n=3361)
+  MO-WOA+               24.7        100.0% (n=54)     70.2% (n=3456)
+  NSGA-II               68.8       100.0% (n=374)     83.6% (n=3136)
+  MOPSO                 47.3        100.0% (n=99)     37.2% (n=3411)
+  MOEA/D                27.6         25.0% (n=20)      7.7% (n=3490)
+
+  check: MO-WOA+ hard HV from WP2 runs 99.86 vs Phase C 99.86
+
+[C7] R5.8 — TERMINAL HV%, 33 HARD ARTICLES: paired article-level differences (seed mean per article; descriptive 95% t-interval; higher/equal/lower articles)
+  means: MO-WOA 79.65, MO-WOA +A+E+G 88.50, MO-WOA +A+E+G+V 95.23, MO-WOA+ 99.86, NSGA-II 99.66, MOPSO 96.62, MOEA/D 96.67
+  MO-WOA +A+E+G     - MOPSO      -8.12 [-9.86, -6.39]  0/1/32 (n=33)
+  MO-WOA +A+E+G+V   - MOPSO      -1.39 [-2.10, -0.68]  6/0/27 (n=33)
+  MO-WOA+           - MOPSO      +3.24 [+2.57, +3.91]  32/1/0 (n=33)
+  MO-WOA            - MOPSO     -16.97 [-19.84, -14.10]  0/0/33 (n=33)
+  MO-WOA+           - NSGA-II    +0.20 [+0.06, +0.34]  20/2/11 (n=33)
+  MO-WOA+           - MOEA/D     +3.19 [+2.69, +3.70]  33/0/0 (n=33)
+  MOPSO-CD shares with MO-WOA +A+E+G: S-shaped transfer, external archive of 30 with crowding pruning, crowding-tournament guide/leader, shared repair and P0. It has no V-shaped transfer and no local-search probes.
+
+[C8] RUNTIME — one process, 33 hard articles x seeds [0, 1, 2], 430 s in total
+  hardware: Intel(R) Xeon(R) CPU @ 2.20GHz | 2 logical CPUs | python 3.13.16 | numpy 2.1.3 | pymoo 0.6.2
+  objective evaluation = lookup in the pre-computed enumeration (BGE-M3 embedding and graph building excluded)
+  algorithm  median s/run  mean s/run  max s/run
+  MO-WOA            0.842       0.935      1.649
+  MO-WOA+           0.712       0.811      1.342
+  NSGA-II           0.786       0.879      1.838
+  MOPSO             0.387       0.434      0.678
+  MOEA/D            1.176       1.284      1.734

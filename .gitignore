@@ -1,0 +1,47 @@
+# IndoSum text: never commit
+*.jsonl
+mowoa_summaries_150*.json
+mowoa_plus_summaries_150*.json
+all_summaries_150_archive.json
+woa_singleobj_summaries_150.json
+indobert_summaries_150.json
+selected_sentences_*.tsv
+sentences.pkl
+indobert_oracle_labels.pkl
+report_figures/
+data/indosum/
+
+# caches, checkpoints, weights
+*.pkl
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+*.h5
+phaseC/
+phaseD/ladder/
+runs/
+peer_runs/
+mowoa_mo_shared.py
+!src/mowoa_mo_shared.py
+
+# analysis notes, not run outputs
+wp5_processing.txt
+
+# local reference copies (RELEASE checklist step A)
+original/
+
+# python / jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

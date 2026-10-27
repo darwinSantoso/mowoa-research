@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below. Please also cite IndoSum (see README.md §2)."
+type: software
+title: "MOWOA for Indonesian Extractive Summarization (IndoSum)"
+abstract: >-
+  Code, configuration and text-free results for the Master's thesis
+  "Multi-Objective Whale Optimization Algorithm (MOWOA) for Extractive Text
+  Summarization" and the ICOT 2026 paper "Indonesian News Text Summarization
+  using Multi Objective Whale Optimization Algorithm".
+authors:
+  - family-names: "Darwin"
+    affiliation: "Computer Science Department, BINUS Graduate Program - Master of Computer Science, Bina Nusantara University, Jakarta, Indonesia 11480"
+  - family-names: "Girsang"
+    given-names: "Abba Suganda"
+    affiliation: "Computer Science Department, BINUS Graduate Program - Master of Computer Science, Bina Nusantara University, Jakarta, Indonesia 11480"
+repository-code: "https://github.com/darwinSantoso/mowoa-research"
+license: MIT
+version: "1.0.0"
+date-released: "2026-10-26"
+keywords:
+  - extractive summarization
+  - multi-objective optimization
+  - whale optimization algorithm
+  - Indonesian
+  - IndoSum
+references:
+  - type: conference-paper
+    title: "IndoSum: A New Benchmark Dataset for Indonesian Text Summarization"
+    authors:
+      - family-names: "Kurniawan"
+        given-names: "Kemal"
+      - family-names: "Louvan"
+        given-names: "Samuel"
+    collection-title: "2018 International Conference on Asian Language Processing (IALP)"
+    start: 215
+    end: 220
+    year: 2018
+    publisher:
+      name: "IEEE"
+    doi: "10.1109/IALP.2018.8629109"

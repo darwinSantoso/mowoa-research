@@ -1,0 +1,10 @@
+# adds BGE-M3 embedding (Phase B Cell 4, notebook 01) and IndoBERT (notebook 04, WP1)
+-r requirements.txt
+sentence-transformers
+torch
+transformers
+accelerate
+# notebook 01 only
+gensim
+Sastrawi
+stopwordsiso

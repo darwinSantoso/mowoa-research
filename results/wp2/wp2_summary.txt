@@ -1,0 +1,82 @@
+==============================================================================
+WP2 / C2 run — 2026-10-16 03:57 | python 3.13.15 | CPUs 2 | workers 2
+articles 150 (hard 33) | seeds 0..29 (30)
+
+[C3] E2 scores ready: 171,178 subsets scored (150 new articles, 127s)
+
+[C4] ladder runs: 27000 (6 stages x 150 articles x 30 seeds); mean 1.22s/run
+
+REPRODUCTION CHECKS
+  E2 R-1 oracle / best-on-front / greedy == Phase B Cell 14: 150/150
+  LEAD-3 R-1 == C1 (wp1_per_article.csv): 150/150
+  +LS selections (w=1, w=32) == C1 runs: 4500/4500
+  Baseline  == Phase C MO-WOA  : w=32 selection 4500/4500, terminal HV 4500/4500
+  +LS       == Phase C MO-WOA+ : w=32 selection 4500/4500, terminal HV 4500/4500
+  +A        == D11 ladder terminal HV (hard): 990/990
+  +A+E      == D11 ladder terminal HV (hard): 990/990
+  +A+E+G    == D11 ladder terminal HV (hard): 990/990
+  +A+E+G+V  == D11 ladder terminal HV (hard): 990/990
+
+COVERAGE EXTREME (= LEAD-3) IN THE SHARED INITIAL POPULATION P0: 4347/4500 (article, seed) pairs
+  runs where it first appears after generation 0: 918 (stages: {'Baseline': 153, '+A': 153, '+A+E': 153, '+A+E+G': 153, '+A+E+G+V': 153, '+LS': 153})
+
+TABEL — PER-STAGE OPTIMIZER QUALITY AND DELIVERED SUMMARY (Q28)
+HV% and recovery: mean over 33 hard x seeds runs (= D11 / Tabel 4.15 basis). ROUGE: per-article seed mean, then mean over 150 articles [95% interval of the mean]
+stage	HV%hard	recov%hard	HV%150	cov_extreme_in_output%	R1(1,1)	R2(1,1)	RL(1,1)	words(1,1)	=LEAD3%(1,1)	Jacc_vs_full(1,1)	R1(32,1)	=LEAD3%(32,1)	unique_cand
+Baseline	79.65±9.38	24.2	82.53	100.0	0.5747 [0.5500,0.5994]	0.4882	0.5280	57.7	15.6	0.487	0.6543	99.6	125.0
++A	88.50±6.31	38.1	92.83	100.0	0.5489 [0.5216,0.5763]	0.4651	0.5081	54.5	1.3	0.675	0.6534	99.2	125.0
++A+E	88.49±6.35	38.0	92.80	100.0	0.5478 [0.5205,0.5752]	0.4638	0.5067	54.6	1.3	0.673	0.6534	99.2	125.5
++A+E+G	88.50±6.32	38.0	92.78	100.0	0.5496 [0.5222,0.5770]	0.4655	0.5084	54.7	1.5	0.672	0.6532	99.0	123.9
++A+E+G+V	95.23±4.45	52.9	95.64	100.0	0.5578 [0.5300,0.5857]	0.4773	0.5190	53.7	4.9	0.774	0.6541	99.8	47.4
++LS	99.86±0.32	91.9	99.89	100.0	0.5379 [0.5085,0.5674]	0.4576	0.4995	51.2	0.6	1.000	0.6528	99.3	88.3
+
+PAIRED DIFFERENCES vs the full configuration (+LS), per article (seed means), n = 150
+  (1,1)   R-1 Baseline  − +LS: +0.0368 [+0.0191, +0.0545]  higher/equal/lower 95/0/55
+  (1,1)   R-1 +A        − +LS: +0.0110 [-0.0015, +0.0235]  higher/equal/lower 66/41/43
+  (1,1)   R-1 +A+E      − +LS: +0.0099 [-0.0028, +0.0226]  higher/equal/lower 65/42/43
+  (1,1)   R-1 +A+E+G    − +LS: +0.0116 [-0.0012, +0.0245]  higher/equal/lower 66/42/42
+  (1,1)   R-1 +A+E+G+V  − +LS: +0.0199 [+0.0075, +0.0323]  higher/equal/lower 78/18/54
+  (32,1)  R-1 Baseline  − +LS: +0.0015 [-0.0014, +0.0044]  higher/equal/lower 9/134/7
+  (32,1)  R-1 +A        − +LS: +0.0006 [-0.0016, +0.0028]  higher/equal/lower 7/133/10
+  (32,1)  R-1 +A+E      − +LS: +0.0006 [-0.0014, +0.0026]  higher/equal/lower 6/134/10
+  (32,1)  R-1 +A+E+G    − +LS: +0.0004 [-0.0018, +0.0027]  higher/equal/lower 8/129/13
+  (32,1)  R-1 +A+E+G+V  − +LS: +0.0013 [-0.0010, +0.0036]  higher/equal/lower 2/147/1
+
+DECOMPOSITION (Q13/Q27), ROUGE-1, mean over 150 articles; per-article seed means
+oracle − best on P* = objective gap; best on P* − best in output set = search gap; best in output set − delivered = selection gap
+stage	oracle	best_P*	best_out	deliv(1,1)	deliv(32,1)	obj_gap	search_gap	sel_gap(1,1)	sel_gap(32,1)	deliv_on_P*%(1,1)	deliv=best_out%(1,1)
+Baseline	0.8476	0.7305	0.7122	0.5747	0.6543	0.1171	+0.0183	0.1375	0.0579	85.4	26.4
++A	0.8476	0.7305	0.7261	0.5489	0.6534	0.1171	+0.0045	0.1771	0.0726	93.1	13.5
++A+E	0.8476	0.7305	0.7260	0.5478	0.6534	0.1171	+0.0046	0.1781	0.0726	92.7	13.5
++A+E+G	0.8476	0.7305	0.7264	0.5496	0.6532	0.1171	+0.0042	0.1768	0.0731	93.2	13.8
++A+E+G+V	0.8476	0.7305	0.7216	0.5578	0.6541	0.1171	+0.0090	0.1637	0.0674	98.0	13.8
++LS	0.8476	0.7305	0.7279	0.5379	0.6528	0.1171	+0.0026	0.1900	0.0751	100.0	7.6
+oracle on P* (R-1): 41/150 (27.3%)
+
+GAP DISTRIBUTIONS, full configuration (+LS), ROUGE-1 per article (seed means)
+gap	mean	SD	min	Q1	median	Q3	max	articles with gap < 0.001
+objective (oracle − best on P*)	0.1171	0.1401	0.0000	0.0000	0.0569	0.1963	0.5986	41
+search (best on P* − best in archive)	0.0026	0.0161	-0.0317	0.0000	0.0000	0.0000	0.1745	131
+selection (1,1)	0.1900	0.1213	0.0000	0.0908	0.2044	0.2754	0.5995	10
+selection (32,1)	0.0751	0.0912	0.0000	0.0000	0.0348	0.1279	0.3358	57
+  R2: oracle 0.8043 | best on P* 0.6739 | best in archive 0.6706 | delivered (1,1) 0.4576 | (32,1) 0.5833
+  RL: oracle 0.8320 | best on P* 0.7015 | best in archive 0.6993 | delivered (1,1) 0.4995 | (32,1) 0.6152
+
+SWITCHING WEIGHT w* (Q22): for w_cov > w* the rule returns the output set's max-coverage member
+stage	cov.extreme in output%	w* median	p90	max	runs w*>1	runs w*>=32	runs w*>=64
+Baseline	100.0	3.93	12.62	2346505.70	3643	16	1
++A	100.0	7.64	18.94	55.57	4429	37	0
++A+E	100.0	7.70	19.24	57.69	4428	35	0
++A+E+G	100.0	7.65	19.04	55.57	4417	45	0
++A+E+G+V	100.0	5.49	12.48	75.86	4239	8	1
++LS	100.0	11.31	22.74	95.92	4470	33	30
+  +LS, articles (1-based) with w* >= 32 -> runs, median w*, max w*: {99: (30, 95.9, 95.9), 140: (3, 33.2, 33.2)}
+
+ARTIKEL 149 (Q27): N 29, C(N,3) 3654, |P*| 13
+  oracle (R-1)       sentences [1, 2, 25]  cov 0.198490  red 0.340386  R-1/2/L 0.7619/0.7184/0.7619  on P* False
+  best on P* (R-1)   sentences [1, 2, 3]  cov 0.274304  red 0.335935  R-1/2/L 0.6923/0.6667/0.6923  on P* True
+  LEAD-3             sentences [1, 2, 3]  cov 0.274304  red 0.335935  R-1/2/L 0.6923/0.6667/0.6923  on P* True
+  +LS w1: sentences [1, 3, 29] in 30 seeds (R-1 0.4944, cov 0.192321, red 0.140616)
+  +LS w32: sentences [1, 2, 3] in 30 seeds (R-1 0.6923, cov 0.274304, red 0.335935)
+
+[C8] figures saved to /content/drive/MyDrive/mowoa_mo_study/wp2/figures: ['fig_artikel149_en.png', 'fig_artikel149_id.png', 'fig_gaps_en.png', 'fig_gaps_id.png', 'fig_stages_en.png', 'fig_stages_id.png']

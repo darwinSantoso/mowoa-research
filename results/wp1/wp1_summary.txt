@@ -1,0 +1,148 @@
+==============================================================================
+WP1 / C1 run — 2026-10-15 14:15 | python 3.13.15 | CPU x86_64 x 2
+references 150 | sentence lists 150 | enumerations 150 | seeds 0 .. 29
+
+[W1] DATASET
+test.01.jsonl articles: 3762 | columns: ['category', 'gold_labels', 'id', 'paragraphs', 'source', 'source_url', 'summary']
+first 150 of test.01 vs Phase C sentences.pkl: 150/150 identical sentence lists
+first 150 of test.01 vs JSON source_texts   : 150/150 identical
+first 150 of test.01 vs JSON golden summaries: 150/150 identical
+IDs saved (wp1_ids.csv). train.01 ∩ test.01 ids: 0; evaluated 150 found in train.01: 0
+first ids: ['1494135000-wanita-terberat-di-dunia-jalani-fisioterapi', '1501222980-kemhan-ingin-beli-drone-dari-china-dan-dikembangka', '1475739008-film-mean-girls-akan-dibuat-musikal']
+files in the download: ['CHANGELOG.txt', 'README.txt', 'dev.01.jsonl', 'dev.02.jsonl', 'dev.03.jsonl', 'dev.04.jsonl', 'dev.05.jsonl', 'test.01.jsonl', 'test.02.jsonl', 'test.03.jsonl', 'test.04.jsonl', 'test.05.jsonl', 'train.01.jsonl', 'train.02.jsonl', 'train.03.jsonl', 'train.04.jsonl', 'train.05.jsonl']
+--- CHANGELOG.txt: 17 lines; lines mentioning licence/fold/citation/split:
+--- README.txt: 51 lines; lines mentioning licence/fold/citation/split:
+    This folder contains Indonesian text summarization dataset,
+    a news aggregator site. The dataset is split into 5 cross-validation
+    folds, where each fold consists of a training set, a development set,
+    a fold number 1-5):
+    * train.0X.jsonl - training set for fold X
+    * dev.0X.jsonl - development set for fold X
+    * test.0X.jsonl - test set for fold X
+    License
+    This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+    International License. See http://creativecommons.org/licenses/by-sa/4.0/.
+    If you're using our code or dataset, please cite:
+
+TABEL 4.1 on the evaluated 150 (first 150 of test.01; IndoSum tokens incl. punctuation)
+  Total Dokumen                            150
+  Ukuran Kosakata (Token Unik)             8346
+  Rata-rata Paragraf per Artikel           10.227
+  Rata-rata Kalimat per Artikel            17.487
+  Minimum Kalimat per Artikel              6
+  Maksimum Kalimat per Artikel             44
+  Rata-rata Kata per Artikel               339.240
+  Rata-rata Kata per Kalimat (Artikel)     20.063
+  Rata-rata Kalimat per Ringkasan          3.447
+  Minimum Kalimat per Ringkasan            2
+  Maksimum Kalimat per Ringkasan           5
+  Rata-rata Kata per Ringkasan             68.160
+  Rata-rata Rasio Kompresi (Kalimat)       0.223
+  Rata-rata Rasio Kompresi (Kata)          0.224
+  reference sentences per summary: distribution {2: 19, 3: 62, 4: 52, 5: 17}
+  cell-7 sample (test.01-05, seed 42): avg words/summary 68.21, avg sentences/article 19.47 (current Tabel 4.1: 68.21, 19.47)
+
+[W2] LEAD-3 / TextRank / LexRank done on native sentences
+  regex units: 16.57 sentences/article vs native 17.49; R-1 reproduction (Tabel 4.18 now): LEAD-3 0.6484 (0.6484), TextRank 0.4229 (0.4229), LexRank 0.4211 (0.4211)
+[W3] SO-WOA done in 44s (np.random.seed(42), cache inputs); graph == cached adjacency 150/150, position bonus == cell-28 schedule 150/150
+
+[W4] IndoBERT inference done (cached model, cuda); checkpoint /content/drive/MyDrive/thesis_mowoa_cache/indobert_extractor.pt
+  cached model on regex units: R-1 0.4660 (Tabel 4.18 now: 0.4660) -> same model as the reported run
+[W4/Q9] oracle-label cache: 1000 training articles; located in train.01 (first 3000): 1000; index range 150–1149; overlap with the evaluated 150: 0
+
+[W5] MO-WOA+ reruns: 4500 runs (30 seeds), mean 0.56s/run
+reproduction checks (w = [32,1]):
+  selection rule here == run_mowoa_final knee_row: 4500/4500
+  rerun == Phase C checkpoint knee_row           : 4500/4500
+  unique candidates per run (of 1480): mean 88.3, min 19, max 191; hard articles mean 121.6
+
+==============================================================================
+TABEL 4.18 (native segmentation; statistics over 150 per-article F1; SD ddof=1)
+Metrik	Algoritma	Rata-rata	Simpangan baku	Min	Maks	Kata (rata-rata)
+ROUGE-1 F1	MO-WOA+ [1,1] (rata-rata seed)	0,5379	0,1826	0,0825	0,9919	51,2
+ROUGE-1 F1	LEAD-3	0,6544	0,2001	0,0952	1,0000	61,7
+ROUGE-1 F1	WOA satu objektif	0,6132	0,1970	0,0952	1,0000	58,2
+ROUGE-1 F1	IndoBERT	0,4525	0,2056	0,0290	0,8958	51,4
+ROUGE-1 F1	TextRank	0,4198	0,1808	0,0714	0,8624	67,1
+ROUGE-1 F1	LexRank	0,4119	0,1668	0,1148	0,8793	64,0
+ROUGE-1 F1	MO-WOA+ [1,1] seed 0	0,5380	0,1823	0,0825	0,9919	51,1
+ROUGE-1 F1	MO-WOA+ [32,1] (rata-rata seed)	0,6528	0,1993	0,0952	1,0000	61,7
+ROUGE-2 F1	MO-WOA+ [1,1] (rata-rata seed)	0,4576	0,2227	0,0000	0,9917	51,2
+ROUGE-2 F1	LEAD-3	0,5852	0,2460	0,0000	1,0000	61,7
+ROUGE-2 F1	WOA satu objektif	0,5373	0,2428	0,0000	1,0000	58,2
+ROUGE-2 F1	IndoBERT	0,3549	0,2423	0,0000	0,8936	51,4
+ROUGE-2 F1	TextRank	0,2808	0,2238	0,0000	0,8224	67,1
+ROUGE-2 F1	LexRank	0,2696	0,2087	0,0000	0,7895	64,0
+ROUGE-2 F1	MO-WOA+ [1,1] seed 0	0,4574	0,2224	0,0000	0,9917	51,1
+ROUGE-2 F1	MO-WOA+ [32,1] (rata-rata seed)	0,5833	0,2450	0,0000	1,0000	61,7
+ROUGE-L F1	MO-WOA+ [1,1] (rata-rata seed)	0,4995	0,2037	0,0730	0,9919	51,2
+ROUGE-L F1	LEAD-3	0,6168	0,2301	0,0680	1,0000	61,7
+ROUGE-L F1	WOA satu objektif	0,5750	0,2201	0,0680	1,0000	58,2
+ROUGE-L F1	IndoBERT	0,4064	0,2231	0,0290	0,8958	51,4
+ROUGE-L F1	TextRank	0,3418	0,2012	0,0357	0,8257	67,1
+ROUGE-L F1	LexRank	0,3307	0,1858	0,0820	0,8793	64,0
+ROUGE-L F1	MO-WOA+ [1,1] seed 0	0,4993	0,2035	0,0730	0,9919	51,1
+ROUGE-L F1	MO-WOA+ [32,1] (rata-rata seed)	0,6152	0,2292	0,0680	1,0000	61,7
+
+ROUGE-1 precision / recall and length per algorithm (means over 150):
+  MO-WOA+ [1,1] (rata-rata seed)   P 0.6122  R 0.4987  words 51.19  ROUGE-tokens 49.43
+  LEAD-3                           P 0.6724  R 0.6622  words 61.70  ROUGE-tokens 59.66
+  WOA satu objektif                P 0.6466  R 0.6068  words 58.15  ROUGE-tokens 56.17
+  IndoBERT                         P 0.5108  R 0.4320  words 51.39  ROUGE-tokens 49.83
+  TextRank                         P 0.4102  R 0.4491  words 67.13  ROUGE-tokens 65.57
+  LexRank                          P 0.4122  R 0.4301  words 64.02  ROUGE-tokens 62.49
+  TextRank                         identical to native LEAD-3 in 3/150
+  LexRank                          identical to native LEAD-3 in 1/150
+  WOA satu objektif                identical to native LEAD-3 in 75/150
+  IndoBERT                         identical to native LEAD-3 in 6/150
+
+PAIRED ARTICLE-LEVEL DIFFERENCES vs native LEAD-3 (descriptive 95% intervals, n = 150)
+  MO-WOA+ [1,1] (rata-rata seed) R-1           -0.1165  t [-0.1393, -0.0937]  boot [-0.1387, -0.0936]  higher/equal/lower 35/0/115
+  MO-WOA+ [1,1] (rata-rata seed) R-2           -0.1276  t [-0.1546, -0.1006]  boot [-0.1537, -0.1006]  higher/equal/lower 41/1/108
+  MO-WOA+ [1,1] (rata-rata seed) R-L           -0.1173  t [-0.1423, -0.0923]  boot [-0.1418, -0.0924]  higher/equal/lower 41/1/108
+  MO-WOA+ [1,1] (rata-rata seed) words         -10.5120  t [-12.2491, -8.7749]  boot [-12.2361, -8.7926]  higher/equal/lower 19/2/129
+  WOA satu objektif R-1                        -0.0412  t [-0.0587, -0.0237]  boot [-0.0587, -0.0239]  higher/equal/lower 23/75/52
+  WOA satu objektif R-2                        -0.0478  t [-0.0677, -0.0280]  boot [-0.0677, -0.0285]  higher/equal/lower 23/76/51
+  WOA satu objektif R-L                        -0.0417  t [-0.0600, -0.0235]  boot [-0.0601, -0.0238]  higher/equal/lower 27/75/48
+  WOA satu objektif words                      -3.5467  t [-5.0050, -2.0883]  boot [-5.0133, -2.1067]  higher/equal/lower 19/76/55
+  IndoBERT R-1                                 -0.2020  t [-0.2374, -0.1665]  boot [-0.2367, -0.1667]  higher/equal/lower 25/6/119
+  IndoBERT R-2                                 -0.2303  t [-0.2725, -0.1881]  boot [-0.2725, -0.1882]  higher/equal/lower 27/7/116
+  IndoBERT R-L                                 -0.2104  t [-0.2491, -0.1717]  boot [-0.2491, -0.1723]  higher/equal/lower 27/6/117
+  IndoBERT words                               -10.3067  t [-13.4525, -7.1608]  boot [-13.4067, -7.2730]  higher/equal/lower 41/7/102
+  TextRank R-1                                 -0.2346  t [-0.2772, -0.1920]  boot [-0.2759, -0.1924]  higher/equal/lower 25/3/122
+  TextRank R-2                                 -0.3043  t [-0.3561, -0.2526]  boot [-0.3540, -0.2530]  higher/equal/lower 22/3/125
+  TextRank R-L                                 -0.2750  t [-0.3230, -0.2271]  boot [-0.3206, -0.2274]  higher/equal/lower 23/3/124
+  TextRank words                               +5.4267  t [+2.3015, +8.5518]  boot [+2.3865, +8.5268]  higher/equal/lower 86/9/55
+  LexRank R-1                                  -0.2426  t [-0.2835, -0.2016]  boot [-0.2820, -0.2021]  higher/equal/lower 24/1/125
+  LexRank R-2                                  -0.3155  t [-0.3657, -0.2654]  boot [-0.3638, -0.2657]  higher/equal/lower 20/1/129
+  LexRank R-L                                  -0.2860  t [-0.3323, -0.2398]  boot [-0.3307, -0.2400]  higher/equal/lower 21/1/128
+  LexRank words                                +2.3200  t [-0.6283, +5.2683]  boot [-0.5600, +5.2535]  higher/equal/lower 78/6/66
+  MO-WOA+ [1,1] seed 0 R-1                     -0.1164  t [-0.1392, -0.0936]  boot [-0.1385, -0.0933]  higher/equal/lower 34/0/116
+  MO-WOA+ [1,1] seed 0 R-2                     -0.1278  t [-0.1548, -0.1008]  boot [-0.1539, -0.1007]  higher/equal/lower 40/1/109
+  MO-WOA+ [1,1] seed 0 R-L                     -0.1175  t [-0.1425, -0.0925]  boot [-0.1419, -0.0926]  higher/equal/lower 41/1/108
+  MO-WOA+ [1,1] seed 0 words                   -10.5800  t [-12.2935, -8.8665]  boot [-12.2800, -8.8933]  higher/equal/lower 18/1/131
+  MO-WOA+ [32,1] (rata-rata seed) R-1          -0.0016  t [-0.0045, +0.0013]  boot [-0.0047, +0.0000]  higher/equal/lower 0/148/2
+  MO-WOA+ [32,1] (rata-rata seed) R-2          -0.0019  t [-0.0054, +0.0016]  boot [-0.0056, +0.0000]  higher/equal/lower 0/148/2
+  MO-WOA+ [32,1] (rata-rata seed) R-L          -0.0016  t [-0.0045, +0.0013]  boot [-0.0047, +0.0000]  higher/equal/lower 0/148/2
+  MO-WOA+ [32,1] (rata-rata seed) words        -0.0233  t [-0.0562, +0.0095]  boot [-0.0600, +0.0000]  higher/equal/lower 0/148/2
+
+SEED SENSITIVITY (corpus means per seed; n seeds = 30)
+weight	R-1 mean±SD [min,max]	R-2 mean±SD	R-L mean±SD	seed-0 R-1	articles = LEAD-3 per seed (mean [min,max])
+w1	0.5379±0.0007 [0.5365,0.5394]	0.4576±0.0008	0.4995±0.0005	0.5380	0.9 [0,1]
+w2	0.5496±0.0014 [0.5451,0.5524]	0.4713±0.0016	0.5134±0.0013	0.5516	5.0 [4,6]
+w4	0.5638±0.0023 [0.5589,0.5690]	0.4828±0.0027	0.5237±0.0029	0.5686	11.8 [10,13]
+w8	0.6035±0.0014 [0.6013,0.6066]	0.5240±0.0018	0.5628±0.0017	0.6050	45.4 [43,49]
+w16	0.6334±0.0017 [0.6306,0.6373]	0.5606±0.0020	0.5960±0.0019	0.6323	103.7 [101,108]
+w32	0.6528±0.0005 [0.6514,0.6530]	0.5833±0.0005	0.6152±0.0005	0.6514	148.9 [148,149]
+w64	0.6530±0.0000 [0.6530,0.6530]	0.5834±0.0000	0.6153±0.0000	0.6530	149.0 [149,149]
+[1,1]: articles = LEAD-3 in all seeds 0, in no seed 149, in some seeds 1
+
+S9 / Q22 CHECKS
+greedy top-3 by biased importance == LEAD-3: 150/150; coverage extreme == greedy: 150/150
+seed 0, w = [32,1]: articles NOT = LEAD-3 (1-based): [99, 140]
+canonical JSON (notebook run, w = [32,1]) == native LEAD-3 text: 150/150; == cache-pipeline seed 0 w = [32,1]: 148/150
+all seeds, w = [32,1]: article (1-based) -> number of seeds not = LEAD-3: {99: 30, 140: 3}
+Artikel 149 (idx 148), cache: LexRank s0..s2 [0.033026, 0.03552, 0.034571] | biased [0.099077, 0.0888, 0.086427] | |P*| 13 | max coverage 0.274304
+   notebook cell 43 printed: LexRank [0.033026, 0.035520, 0.034571], biased [0.099077, 0.088800, 0.086427], |P*| 13, max coverage 0.274304
+   Artikel 149 seed 0 w1: sentences [0, 2, 28] objectives (cov, red) [0.192321, 0.140616] R-1/2/L [0.4944, 0.4368, 0.4944]
+   Artikel 149 seed 0 w32: sentences [0, 1, 2] objectives (cov, red) [0.274304, 0.335935] R-1/2/L [0.6923, 0.6667, 0.6923]

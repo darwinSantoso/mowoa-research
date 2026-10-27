@@ -1,0 +1,156 @@
+==============================================================================
+WP5 / C4 run — 2026-10-17 04:54 | python 3.13.15 | numpy 2.1.3 | pymoo 0.6.2 | CPUs 2 | workers 2
+hard articles 33 | seeds 0..29 (30)
+Phase C runs (hard articles) 4950 | D11 ladder runs 3960
+
+[C3] runs: 8910 (9 configurations x 33 articles x 30 seeds); mean 1.43 s/run
+
+REPRODUCTION CHECKS
+  MOWOA, no added mechanisms  = Phase C (evaluations, HV, IGD, recovery, cumulative HV): 990 runs -> OK
+  MOWOA (proposed)            = Phase C (evaluations, HV, IGD, recovery, cumulative HV): 990 runs -> OK
+  NSGA-II                     = Phase C (evaluations, HV, IGD, recovery, cumulative HV): 990 runs -> OK
+  MOPSO-CD                    = Phase C (evaluations, HV, IGD, recovery, cumulative HV): 990 runs -> OK
+  MOEA/D                      = Phase C (evaluations, HV, IGD, recovery, cumulative HV): 990 runs -> OK
+  +A                          = D11 ladder (HV, IGD, recovery): 990 runs -> OK
+  +A+E                        = D11 ladder (HV, IGD, recovery): 990 runs -> OK
+  +A+E+G                      = D11 ladder (HV, IGD, recovery): 990 runs -> OK
+  +A+E+G+V                    = D11 ladder (HV, IGD, recovery): 990 runs -> OK
+  every curve ends at its table value (last point of the trace = terminal HV): OK
+  last point of the trace is at the run's evaluation count: OK
+
+[C5] TABLES FROM THESE RUNS — 33 hard articles x 30 seeds, terminal tier, mean ± SD over the 990 runs
+  configuration                        HV %             IGD            IGD+              GD         Spacing   recovery %   |S| cumul. HV   evals distinct
+  MOWOA, no added mechanisms   79.65±9.38   0.2285±0.0842  0.1433±0.0667  0.0278±0.0314  0.0818±0.0564  24.2±15.5   4.25     88.50  1480.0    140.3
+  +A                           88.50±6.31   0.1249±0.0530  0.0751±0.0437  0.0295±0.0284  0.0913±0.0461  38.1±16.6   7.11     88.50  1480.0    140.3
+  +A+E                         88.49±6.35   0.1249±0.0533  0.0752±0.0440  0.0298±0.0289  0.0910±0.0459  38.0±16.6   7.14     88.49  1480.0    141.0
+  +A+E+G                       88.50±6.32   0.1252±0.0532  0.0752±0.0438  0.0291±0.0283  0.0918±0.0475  38.0±16.6   7.10     88.50  1480.0    139.5
+  +A+E+G+V                     95.23±4.45   0.0821±0.0577  0.0293±0.0303  0.0100±0.0166  0.0809±0.0344  52.9±18.6   8.86     95.23  1480.0     65.4
+  MOWOA (proposed)             99.86±0.32   0.0087±0.0273  0.0012±0.0023  0.0012±0.0039  0.0746±0.0288  91.9±9.4   13.49     99.86  1480.0    121.6
+  NSGA-II                      99.66±0.61   0.0084±0.0167  0.0019±0.0035  0.0017±0.0053  0.0760±0.0262  91.4±10.0  13.46     99.65  1496.1    546.0
+  MOPSO-CD                     96.62±2.59   0.0513±0.0394  0.0191±0.0158  0.0120±0.0157  0.0843±0.0304  60.2±16.2  10.32     96.58  1500.0    319.4
+  MOEA/D                       96.67±2.73   0.0665±0.0487  0.0198±0.0170  0.0070±0.0112  0.0897±0.0327  54.5±16.2   8.57     97.29  1500.0    151.1
+  Spacing excludes runs with |S| < 2: MOWOA, no added mechanisms 2.12%
+  runs with the exact true front: MOWOA, no added mechanisms 1.5%, +A 3.0%, +A+E 3.0%, +A+E+G 3.0%, +A+E+G+V 3.4%, MOWOA (proposed) 41.8%, NSGA-II 42.6%, MOPSO-CD 3.4%, MOEA/D 2.7%
+  worst run: MOWOA, no added mechanisms HV 43.99 / recovery 4.0%, +A HV 68.10 / recovery 13.0%, +A+E HV 68.10 / recovery 13.0%, +A+E+G HV 68.10 / recovery 13.0%, +A+E+G+V HV 70.14 / recovery 13.0%, MOWOA (proposed) HV 96.53 / recovery 42.9%, NSGA-II HV 95.73 / recovery 50.0%, MOPSO-CD HV 82.68 / recovery 18.2%, MOEA/D HV 80.11 / recovery 18.2%
+  ablation ΔHV per added mechanism: +A +8.85, +A+E -0.01, +A+E+G +0.00, +A+E+G+V +6.73, MO-WOA+ +4.63
+  MOWOA (proposed) vs no added mechanisms: IGD 26.3x lower, recovery 3.80x higher
+
+[C5] TABEL 4.20 AT SCALE (R4.6) — HV %, 33 hard articles x 30 seeds
+  no added mechanisms: terminal 79.65 | cumulative (all it evaluated) 88.50 | +A terminal 88.50 | MOWOA (proposed) terminal 99.86
+  +A evaluates exactly the same candidate sequence as the version without mechanisms in 990/990 runs
+  +A terminal HV - cumulative HV without mechanisms, per run: max |diff| 0.000000; equal (|diff| < 1e-6) in 990/990 runs
+  retention (+A - none) +8.85 | remaining mechanisms (MOWOA - +A) +11.36 | total +20.21 | shares 43.8% / 56.2%
+
+[C6] PAIRED ARTICLE-LEVEL DIFFERENCES a - b (seed mean per article, n = 33; descriptive 95% t-interval, bootstrap percentile interval in brackets; articles higher/equal/lower). Lower is better for IGD, IGD+, GD, Spacing; recovery in percentage points.
+  MOWOA (proposed) - NSGA-II
+    HV_pct            +0.1988 [+0.0593, +0.3382] (boot [+0.0791, +0.3386]) 20/2/11
+    IGD               +0.0003 [-0.0084, +0.0089] (boot [-0.0062, +0.0094]) 13/2/18
+    IGD+              -0.0007 [-0.0016, +0.0003] (boot [-0.0017, +0.0001]) 14/2/17
+    GD                -0.0006 [-0.0016, +0.0004] (boot [-0.0015, +0.0003]) 7/7/19
+    Spacing           -0.0014 [-0.0044, +0.0016] (boot [-0.0042, +0.0015]) 12/2/19
+    front_recovery    +0.4961 [-2.9654, +3.9577] (boot [-2.6582, +3.9186]) 18/3/12
+    cardinality       +0.0263 [-0.4239, +0.4764] (boot [-0.3646, +0.4889]) 16/3/14
+  MOWOA (proposed) - MOPSO-CD
+    HV_pct            +3.2404 [+2.5689, +3.9119] (boot [+2.6040, +3.8853]) 32/1/0
+    IGD               -0.0426 [-0.0504, -0.0348] (boot [-0.0501, -0.0352]) 0/1/32
+    IGD+              -0.0179 [-0.0219, -0.0138] (boot [-0.0220, -0.0143]) 0/1/32
+    GD                -0.0108 [-0.0139, -0.0077] (boot [-0.0138, -0.0079]) 2/1/30
+    Spacing           -0.0097 [-0.0147, -0.0046] (boot [-0.0142, -0.0046]) 5/1/27
+    front_recovery   +31.7227 [+27.1965, +36.2490] (boot [+27.4335, +36.0507]) 32/1/0
+    cardinality       +3.1747 [+2.4088, +3.9407] (boot [+2.4768, +3.9343]) 31/1/1
+  MOWOA (proposed) - MOEA/D
+    HV_pct            +3.1909 [+2.6857, +3.6960] (boot [+2.7130, +3.6732]) 33/0/0
+    IGD               -0.0578 [-0.0668, -0.0487] (boot [-0.0666, -0.0496]) 0/0/33
+    IGD+              -0.0186 [-0.0218, -0.0153] (boot [-0.0217, -0.0156]) 0/0/33
+    GD                -0.0059 [-0.0079, -0.0039] (boot [-0.0079, -0.0040]) 4/0/29
+    Spacing           -0.0151 [-0.0195, -0.0108] (boot [-0.0192, -0.0110]) 3/0/30
+    front_recovery   +37.3990 [+33.2478, +41.5502] (boot [+33.4209, +41.3258]) 33/0/0
+    cardinality       +4.9212 [+3.9709, +5.8715] (boot [+4.0545, +5.8424]) 33/0/0
+  +A - MOWOA, no added mechanisms
+    HV_pct            +8.8524 [+7.2292, +10.4757] (boot [+7.3811, +10.4291]) 33/0/0
+    IGD               -0.1035 [-0.1176, -0.0895] (boot [-0.1170, -0.0907]) 0/0/33
+    IGD+              -0.0682 [-0.0801, -0.0564] (boot [-0.0797, -0.0572]) 0/0/33
+    GD                +0.0016 [-0.0051, +0.0084] (boot [-0.0045, +0.0082]) 14/1/18
+    Spacing           +0.0112 [+0.0013, +0.0212] (boot [+0.0022, +0.0208]) 21/0/12
+    front_recovery   +13.8717 [+11.6826, +16.0607] (boot [+11.8804, +16.0145]) 33/0/0
+    cardinality       +2.8616 [+2.4672, +3.2561] (boot [+2.4899, +3.2303]) 33/0/0
+  +A+E - +A
+    HV_pct            -0.0095 [-0.0517, +0.0326] (boot [-0.0541, +0.0248]) 15/2/16
+    IGD               -0.0001 [-0.0009, +0.0008] (boot [-0.0009, +0.0008]) 16/4/13
+    IGD+              +0.0001 [-0.0002, +0.0005] (boot [-0.0001, +0.0005]) 13/4/16
+    GD                +0.0003 [-0.0003, +0.0009] (boot [-0.0002, +0.0009]) 16/3/14
+    Spacing           -0.0003 [-0.0011, +0.0005] (boot [-0.0011, +0.0004]) 12/2/19
+    front_recovery    -0.0506 [-0.1420, +0.0408] (boot [-0.1357, +0.0385]) 4/18/11
+    cardinality       +0.0263 [-0.0112, +0.0637] (boot [-0.0091, +0.0626]) 16/5/12
+  +A+E+G - +A+E
+    HV_pct            +0.0032 [-0.0545, +0.0609] (boot [-0.0532, +0.0565]) 16/4/13
+    IGD               +0.0003 [-0.0008, +0.0014] (boot [-0.0007, +0.0014]) 15/5/13
+    IGD+              -0.0001 [-0.0005, +0.0004] (boot [-0.0005, +0.0004]) 12/6/15
+    GD                -0.0007 [-0.0013, -0.0001] (boot [-0.0013, -0.0002]) 11/5/17
+    Spacing           +0.0008 [-0.0012, +0.0027] (boot [-0.0009, +0.0028]) 14/4/15
+    front_recovery    +0.0117 [-0.0698, +0.0933] (boot [-0.0655, +0.0878]) 8/19/6
+    cardinality       -0.0333 [-0.0698, +0.0031] (boot [-0.0697, +0.0010]) 12/8/13
+  +A+E+G+V - +A+E+G
+    HV_pct            +6.7319 [+4.8798, +8.5840] (boot [+4.9466, +8.5119]) 28/0/5
+    IGD               -0.0431 [-0.0575, -0.0287] (boot [-0.0570, -0.0298]) 6/0/27
+    IGD+              -0.0458 [-0.0586, -0.0330] (boot [-0.0581, -0.0338]) 5/0/28
+    GD                -0.0191 [-0.0263, -0.0120] (boot [-0.0261, -0.0125]) 6/2/25
+    Spacing           -0.0109 [-0.0210, -0.0009] (boot [-0.0206, -0.0014]) 8/0/25
+    front_recovery   +14.8611 [+9.3824, +20.3397] (boot [+9.6856, +19.9716]) 27/0/6
+    cardinality       +1.7535 [+0.9748, +2.5323] (boot [+1.0364, +2.5031]) 24/0/9
+  MOWOA (proposed) - +A+E+G+V
+    HV_pct            +4.6320 [+3.9025, +5.3615] (boot [+3.9117, +5.3030]) 33/0/0
+    IGD               -0.0734 [-0.0875, -0.0593] (boot [-0.0866, -0.0604]) 0/0/33
+    IGD+              -0.0281 [-0.0334, -0.0229] (boot [-0.0330, -0.0232]) 0/0/33
+    GD                -0.0088 [-0.0108, -0.0068] (boot [-0.0108, -0.0070]) 0/2/31
+    Spacing           -0.0063 [-0.0122, -0.0004] (boot [-0.0120, -0.0006]) 8/0/25
+    front_recovery   +39.0438 [+33.9703, +44.1172] (boot [+34.1009, +43.7252]) 33/0/0
+    cardinality       +4.6343 [+3.7507, +5.5180] (boot [+3.8192, +5.4970]) 33/0/0
+  MOWOA (proposed) - MOWOA, no added mechanisms
+    HV_pct           +20.2100 [+17.0977, +23.3222] (boot [+17.2253, +23.1066]) 33/0/0
+    IGD               -0.2198 [-0.2453, -0.1942] (boot [-0.2435, -0.1949]) 0/0/33
+    IGD+              -0.1421 [-0.1635, -0.1206] (boot [-0.1625, -0.1213]) 0/0/33
+    GD                -0.0267 [-0.0337, -0.0196] (boot [-0.0335, -0.0201]) 1/1/31
+    Spacing           -0.0055 [-0.0154, +0.0043] (boot [-0.0145, +0.0041]) 9/0/24
+    front_recovery   +67.7376 [+62.1684, +73.3068] (boot [+61.9470, +72.3154]) 33/0/0
+    cardinality       +9.2424 [+7.7484, +10.7364] (boot [+7.8606, +10.7061]) 33/0/0
+  +A+E+G - MOPSO-CD
+    HV_pct            -8.1235 [-9.8575, -6.3895] (boot [-9.8461, -6.5306]) 0/1/32
+    IGD               +0.0739 [+0.0621, +0.0857] (boot [+0.0625, +0.0851]) 32/1/0
+    IGD+              +0.0561 [+0.0443, +0.0679] (boot [+0.0452, +0.0674]) 32/1/0
+    GD                +0.0171 [+0.0107, +0.0236] (boot [+0.0112, +0.0237]) 25/1/7
+    Spacing           +0.0075 [-0.0011, +0.0162] (boot [-0.0001, +0.0163]) 23/1/9
+    front_recovery   -22.1821 [-25.8950, -18.4692] (boot [-25.6263, -18.5985]) 0/1/32
+    cardinality       -3.2131 [-3.9583, -2.4680] (boot [-3.9556, -2.5404]) 1/1/31
+  +A+E+G+V - MOPSO-CD
+    HV_pct            -1.3916 [-2.1016, -0.6816] (boot [-2.0483, -0.7075]) 6/0/27
+    IGD               +0.0308 [+0.0195, +0.0421] (boot [+0.0205, +0.0419]) 30/0/3
+    IGD+              +0.0103 [+0.0055, +0.0150] (boot [+0.0058, +0.0148]) 26/0/7
+    GD                -0.0020 [-0.0046, +0.0007] (boot [-0.0044, +0.0007]) 10/1/22
+    Spacing           -0.0034 [-0.0087, +0.0019] (boot [-0.0083, +0.0017]) 14/0/19
+    front_recovery    -7.3211 [-11.4770, -3.1651] (boot [-11.1968, -3.5171]) 8/1/24
+    cardinality       -1.4596 [-1.8918, -1.0274] (boot [-1.8667, -1.0495]) 3/0/30
+
+[C7] Q19 — CONSISTENCY NUMBERS (terminal HV %, 33 hard articles x 30 seeds)
+  paper: inter-seed SD MO-WOA+ 0.21 vs NSGA-II 0.38 (Journal V2: 0.36); inter-article SD 0.13 vs 0.39; 990 paired runs 411/257/322; article wins 20/33 (NSGA-II), 32/33 (MOPSO-CD), 33/33 (MOEA/D); worst run 96.53; worst recovery 42.9% vs 50.0%; mean |P*| 14.33
+  MOWOA (proposed)  SD of all runs 0.32 | within-article SD: mean 0.21 (ddof 0: 0.21), pooled 0.29 | between-article SD 0.13 (ddof 0: 0.13) | SD of the 30 seed means 0.06 | worst run 96.53 | worst recovery 42.9%
+  NSGA-II           SD of all runs 0.61 | within-article SD: mean 0.36 (ddof 0: 0.36), pooled 0.48 | between-article SD 0.39 (ddof 0: 0.39) | SD of the 30 seed means 0.07 | worst run 95.73 | worst recovery 50.0%
+  MOPSO-CD          SD of all runs 2.59 | within-article SD: mean 1.61 (ddof 0: 1.59), pooled 1.80 | between-article SD 1.92 (ddof 0: 1.89) | SD of the 30 seed means 0.28 | worst run 82.68 | worst recovery 18.2%
+  MOEA/D            SD of all runs 2.73 | within-article SD: mean 2.15 (ddof 0: 2.11), pooled 2.37 | between-article SD 1.43 (ddof 0: 1.41) | SD of the 30 seed means 0.42 | worst run 80.11 | worst recovery 18.2%
+  run pairs MOWOA vs NSGA-II : higher/equal/lower 411/257/322 (exact), 396/288/306 (np.isclose ties) of 990; runs are nested in articles, so the article-level counts in C6 are the ones to report
+  run pairs MOWOA vs MOPSO-CD: higher/equal/lower 915/53/22 (exact), 915/53/22 (np.isclose ties) of 990; runs are nested in articles, so the article-level counts in C6 are the ones to report
+  run pairs MOWOA vs MOEA/D  : higher/equal/lower 937/27/26 (exact), 937/28/25 (np.isclose ties) of 990; runs are nested in articles, so the article-level counts in C6 are the ones to report
+  mean |P*| on the hard articles: 14.33
+
+[C8] CONVERGENCE — mean HV % of the output set at a given number of evaluations (step function, 990 runs per configuration)
+  configuration                P0 (30)     500   1,000   1,480   final   evals   curve peak (at) mean run peak
+  MOWOA, no added mechanisms     84.48   79.64   79.52   79.65   79.65  1480.0    84.48 (   30)         87.40
+  +A                             84.48   88.06   88.39   88.50   88.50  1480.0    88.50 ( 1480)         88.50
+  +A+E                           84.48   88.11   88.41   88.49   88.49  1480.0    88.49 ( 1480)         88.49
+  +A+E+G                         84.48   88.12   88.36   88.50   88.50  1480.0    88.50 ( 1480)         88.50
+  +A+E+G+V                       84.48   93.52   94.95   95.23   95.23  1480.0    95.23 ( 1480)         95.23
+  MOWOA (proposed)               84.48   99.72   99.83   99.86   99.86  1480.0    99.86 ( 1480)         99.86
+  NSGA-II                        84.48   98.49   99.38   99.65   99.66  1496.1    99.66 ( 1500)         99.66
+  MOPSO-CD                       84.48   93.62   95.59   96.56   96.62  1500.0    96.62 ( 1500)         96.62
+  MOEA/D                         84.48   92.23   95.35   96.62   96.67  1500.0    96.67 ( 1500)         96.73
+  (Tabel 4.14 [E]: curve peak -> final of the version without mechanisms; D8 at scale gave 84.5 -> 79.6)

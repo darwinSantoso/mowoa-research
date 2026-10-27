@@ -1,0 +1,125 @@
+==============================================================================
+WP6 / C5 run — 2026-10-18 04:00 | python 3.13.16 | numpy 2.1.3 | CPUs 2 | workers 2
+articles 150 (hard 33, easy 117) | seeds 0..29 (30)
+Phase C runs loaded 18000 | D11 +A+E+G+V runs 990
+
+[C3] runs: 14940 (leave-one-out 6 configurations x 33 hard; baselines 2 x 150 articles; x 30 seeds); mean s/run: -A 1.62, -E 1.38, -G 1.49, -LS 1.65, -V 2.03, MOWOA 1.59, RS-A 0.53, SWAP 1.70
+
+CHECKS
+  every run uses exactly 1480 counted evaluations: OK (0 runs differ)
+  MOWOA (leave-one-out runner, archive on) = Phase C MO-WOA+ (HV, IGD, recovery, cumulative HV): 990 runs -> OK
+  -LS = D11 ladder +A+E+G+V (HV, IGD, recovery): 990 runs -> OK
+  every trace ends at the terminal HV: OK
+
+[C5] R4.5 LEAVE-ONE-OUT — 33 hard articles x 30 seeds, terminal output set, mean ± SD over the runs, same budget (1,480)
+  configuration                                   HV %             IGD            IGD+              GD         Spacing   recovery %   |S| exact % distinct
+  MOWOA (all five mechanisms)             99.86±0.32   0.0087±0.0273  0.0012±0.0023  0.0012±0.0039  0.0746±0.0288  91.9±9.4   13.49    41.8    121.6
+  MOWOA without archive (-A)              99.86±0.30   0.0094±0.0286  0.0013±0.0023  0.0012±0.0036  0.0738±0.0277  89.7±10.4  13.02    36.3    121.6
+  MOWOA without elitist survival (-E)     99.88±0.28   0.0086±0.0275  0.0011±0.0021  0.0010±0.0038  0.0744±0.0285  92.7±9.2   13.57    45.7    139.7
+  MOWOA without per-whale guide (-G)      99.85±0.30   0.0089±0.0269  0.0013±0.0023  0.0012±0.0038  0.0744±0.0284  91.7±9.0   13.47    39.2    120.5
+  MOWOA without V-transfer (-V)           99.90±0.22   0.0081±0.0269  0.0007±0.0012  0.0005±0.0019  0.0730±0.0264  92.4±8.8   13.38    45.5    181.0
+  MOWOA without local search (-LS)        95.23±4.45   0.0821±0.0577  0.0293±0.0303  0.0100±0.0166  0.0809±0.0344  52.9±18.6   8.86     3.4     65.4
+
+[C5] PAIRED: MOWOA minus each leave-one-out configuration (seed mean per article, n = 33; descriptive 95% t-interval, bootstrap in brackets; articles higher/equal/lower). Positive HV/recovery = the removed mechanism helps; for IGD, IGD+, GD, Spacing lower is better.
+  MOWOA (all five mechanisms) - MOWOA without archive (-A)
+    HV_pct            +0.0022 [-0.0153, +0.0198] (boot [-0.0147, +0.0188]) 17/4/12 (n=33)
+    IGD               -0.0007 [-0.0022, +0.0008] (boot [-0.0023, +0.0006]) 10/4/19 (n=33)
+    IGD+              -0.0001 [-0.0002, +0.0001] (boot [-0.0002, +0.0000]) 9/4/20 (n=33)
+    GD                -0.0000 [-0.0002, +0.0002] (boot [-0.0002, +0.0002]) 8/13/12 (n=33)
+    Spacing           +0.0008 [-0.0010, +0.0026] (boot [-0.0005, +0.0028]) 12/4/17 (n=33)
+    front_recovery    +2.2761 [+0.6081, +3.9441] (boot [+0.8604, +4.0000]) 20/7/6 (n=33)
+    cardinality       +0.4677 [+0.1046, +0.8308] (boot [+0.1636, +0.8424]) 22/5/6 (n=33)
+  MOWOA (all five mechanisms) - MOWOA without elitist survival (-E)
+    HV_pct            -0.0165 [-0.0379, +0.0049] (boot [-0.0357, +0.0044]) 6/4/23 (n=33)
+    IGD               +0.0001 [-0.0005, +0.0008] (boot [-0.0006, +0.0006]) 22/5/6 (n=33)
+    IGD+              +0.0001 [+0.0000, +0.0003] (boot [+0.0000, +0.0003]) 22/5/6 (n=33)
+    GD                +0.0002 [-0.0001, +0.0005] (boot [-0.0001, +0.0005]) 12/15/6 (n=33)
+    Spacing           +0.0001 [-0.0007, +0.0010] (boot [-0.0006, +0.0009]) 12/4/17 (n=33)
+    front_recovery    -0.7712 [-1.3857, -0.1568] (boot [-1.3313, -0.1612]) 5/5/23 (n=33)
+    cardinality       -0.0758 [-0.1734, +0.0219] (boot [-0.1646, +0.0212]) 7/4/22 (n=33)
+  MOWOA (all five mechanisms) - MOWOA without per-whale guide (-G)
+    HV_pct            +0.0052 [-0.0136, +0.0239] (boot [-0.0144, +0.0214]) 19/3/11 (n=33)
+    IGD               -0.0002 [-0.0005, +0.0001] (boot [-0.0005, +0.0001]) 12/4/17 (n=33)
+    IGD+              -0.0000 [-0.0001, +0.0001] (boot [-0.0001, +0.0001]) 11/4/18 (n=33)
+    GD                +0.0000 [-0.0001, +0.0002] (boot [-0.0001, +0.0002]) 4/13/16 (n=33)
+    Spacing           +0.0002 [-0.0005, +0.0009] (boot [-0.0004, +0.0009]) 15/3/15 (n=33)
+    front_recovery    +0.1982 [-0.1547, +0.5511] (boot [-0.1415, +0.5383]) 18/4/11 (n=33)
+    cardinality       +0.0192 [-0.0350, +0.0734] (boot [-0.0303, +0.0697]) 16/4/13 (n=33)
+  MOWOA (all five mechanisms) - MOWOA without V-transfer (-V)
+    HV_pct            -0.0455 [-0.0895, -0.0014] (boot [-0.0860, -0.0040]) 9/3/21 (n=33)
+    IGD               +0.0006 [-0.0003, +0.0016] (boot [-0.0003, +0.0016]) 17/3/13 (n=33)
+    IGD+              +0.0005 [+0.0001, +0.0010] (boot [+0.0002, +0.0010]) 21/3/9 (n=33)
+    GD                +0.0007 [+0.0000, +0.0013] (boot [+0.0001, +0.0014]) 14/9/10 (n=33)
+    Spacing           +0.0015 [-0.0009, +0.0039] (boot [-0.0005, +0.0040]) 17/3/13 (n=33)
+    front_recovery    -0.4914 [-2.1841, +1.2013] (boot [-2.1648, +1.0593]) 12/3/18 (n=33)
+    cardinality       +0.1141 [-0.1043, +0.3326] (boot [-0.0859, +0.3263]) 14/4/15 (n=33)
+  MOWOA (all five mechanisms) - MOWOA without local search (-LS)
+    HV_pct            +4.6320 [+3.9025, +5.3615] (boot [+3.9390, +5.3261]) 33/0/0 (n=33)
+    IGD               -0.0734 [-0.0875, -0.0593] (boot [-0.0871, -0.0600]) 0/0/33 (n=33)
+    IGD+              -0.0281 [-0.0334, -0.0229] (boot [-0.0332, -0.0232]) 0/0/33 (n=33)
+    GD                -0.0088 [-0.0108, -0.0068] (boot [-0.0108, -0.0070]) 0/2/31 (n=33)
+    Spacing           -0.0063 [-0.0122, -0.0004] (boot [-0.0118, -0.0005]) 8/0/25 (n=33)
+    front_recovery   +39.0438 [+33.9703, +44.1172] (boot [+34.0057, +43.6360]) 33/0/0 (n=33)
+    cardinality       +4.6343 [+3.7507, +5.5180] (boot [+3.8171, +5.4879]) 33/0/0 (n=33)
+  HV lost when one mechanism is removed (points): -A +0.00, -E -0.02, -G +0.01, -V -0.05, -LS +4.63
+  (incremental ladder from WP5 for comparison: +A +8.85, +E -0.01, +G +0.01, +V +6.73, +LS +4.63)
+
+[C6] R1.6 HARD ARTICLES (33 x 30 seeds), terminal output set, same budget (MOWOA and comparators: Phase C records; distinct evaluations only for the baselines)
+  configuration                                   HV %             IGD            IGD+              GD         Spacing   recovery %   |S| exact % distinct
+  MOWOA (all five mechanisms)             99.86±0.32   0.0087±0.0273  0.0012±0.0023  0.0012±0.0039  0.0746±0.0288  91.9±9.4   13.49    41.8      nan
+  NSGA-II                                 99.66±0.61   0.0084±0.0167  0.0019±0.0035  0.0017±0.0053  0.0760±0.0262  91.4±10.0  13.46    42.6      nan
+  MOPSO-CD                                96.62±2.59   0.0513±0.0394  0.0191±0.0158  0.0120±0.0157  0.0843±0.0304  60.2±16.2  10.32     3.4      nan
+  MOEA/D                                  96.67±2.73   0.0665±0.0487  0.0198±0.0170  0.0070±0.0112  0.0897±0.0327  54.5±16.2   8.57     2.7      nan
+  Random sampling + archive               97.18±2.60   0.0272±0.0182  0.0161±0.0131  0.0267±0.0265  0.0834±0.0328  53.1±18.0  12.02     1.8   1138.5
+  Swap search                             99.93±0.21   0.0057±0.0253  0.0005±0.0013  0.0005±0.0021  0.0728±0.0265  96.3±6.5   13.97    64.2    459.8
+  share of C(N,3) visited (hard): Random sampling + archive 41.5%, Swap search 16.1%
+
+[C6] PAIRED (hard, n = 33): MOWOA minus each baseline (all indicators); each comparator minus each baseline (HV)
+  MOWOA (all five mechanisms) - Random sampling + archive
+    HV_pct            +2.6765 [+2.1770, +3.1759] (boot [+2.2091, +3.1655]) 33/0/0 (n=33)
+    IGD               -0.0185 [-0.0277, -0.0094] (boot [-0.0258, -0.0084]) 2/0/31 (n=33)
+    IGD+              -0.0149 [-0.0177, -0.0121] (boot [-0.0176, -0.0123]) 0/0/33 (n=33)
+    GD                -0.0255 [-0.0307, -0.0204] (boot [-0.0305, -0.0208]) 0/0/33 (n=33)
+    Spacing           -0.0088 [-0.0147, -0.0030] (boot [-0.0147, -0.0034]) 9/0/24 (n=33)
+    front_recovery   +38.8510 [+34.3202, +43.3817] (boot [+34.4768, +43.1662]) 33/0/0 (n=33)
+    cardinality       +1.4737 [+0.7954, +2.1520] (boot [+0.8515, +2.1343]) 23/0/10 (n=33)
+  MOWOA (all five mechanisms) - Swap search
+    HV_pct            -0.0672 [-0.1163, -0.0181] (boot [-0.1146, -0.0210]) 8/2/23 (n=33)
+    IGD               +0.0030 [+0.0008, +0.0052] (boot [+0.0012, +0.0053]) 24/2/7 (n=33)
+    IGD+              +0.0007 [+0.0003, +0.0011] (boot [+0.0004, +0.0011]) 24/2/7 (n=33)
+    GD                +0.0007 [+0.0001, +0.0013] (boot [+0.0002, +0.0013]) 14/11/8 (n=33)
+    Spacing           +0.0018 [-0.0004, +0.0039] (boot [-0.0001, +0.0040]) 20/2/11 (n=33)
+    front_recovery    -4.3668 [-6.4855, -2.2481] (boot [-6.4729, -2.4662]) 5/3/25 (n=33)
+    cardinality       -0.4818 [-0.7422, -0.2214] (boot [-0.7313, -0.2394]) 7/3/23 (n=33)
+  NSGA-II - Random sampling + archive
+    HV_pct            +2.4777 [+2.0093, +2.9462] (boot [+2.0525, +2.9271]) 33/0/0 (n=33)
+  NSGA-II - Swap search
+    HV_pct            -0.2659 [-0.3842, -0.1477] (boot [-0.3882, -0.1638]) 1/2/30 (n=33)
+  MOPSO-CD - Random sampling + archive
+    HV_pct            -0.5639 [-1.0338, -0.0940] (boot [-1.0083, -0.1166]) 9/0/24 (n=33)
+  MOPSO-CD - Swap search
+    HV_pct            -3.3076 [-3.9746, -2.6406] (boot [-3.9401, -2.7026]) 0/1/32 (n=33)
+  MOEA/D - Random sampling + archive
+    HV_pct            -0.5144 [-1.0257, -0.0031] (boot [-1.0113, -0.0304]) 13/0/20 (n=33)
+  MOEA/D - Swap search
+    HV_pct            -3.2580 [-3.7581, -2.7580] (boot [-3.7414, -2.7937]) 0/0/33 (n=33)
+
+[C6] R1.6 EASY ARTICLES (117 x 30 seeds; C(N,3) <= 1480)
+  configuration                HV mean  HV min  rec mean  rec min  exact %  visited-lost %  never-visited %  C(N,3) visited %  whole space %
+  MOWOA (all five mechanisms)    99.90   96.89      95.7     37.5     70.6             0.0             29.4             (WP4)               
+  NSGA-II                        99.96   96.97      98.4     66.7     85.3             0.0             14.7             (WP4)               
+  MOPSO-CD                       99.31   92.51      87.3     37.5     39.0             0.0             61.0             (WP4)               
+  MOEA/D                         98.15   74.32      69.6     18.2      7.8            11.0             81.2             (WP4)               
+  Random sampling + archive      99.72   90.50      93.7     36.4     63.4             0.0             36.6              91.8           24.6
+  Swap search                    99.96   97.34      98.4     37.5     90.7             0.0              9.3              46.2            1.9
+  exact = terminal output contains every true-front point; visited-lost = every true-front point was generated but not all were kept; never-visited = at least one was never generated. C(N,3) visited for MOWOA and the comparators: WP4 (24.7 / 68.8 / 47.3 / 27.6%).
+
+[C6] PAIRED (easy, n = 117): MOWOA minus each baseline
+  MOWOA (all five mechanisms) - Random sampling + archive
+    HV_pct            +0.1784 [+0.0871, +0.2697] (boot [+0.0894, +0.2697]) 71/18/28 (n=117)
+    front_recovery    +1.9987 [+0.3357, +3.6617] (boot [+0.3046, +3.5605]) 58/22/37 (n=117)
+  MOWOA (all five mechanisms) - Swap search
+    HV_pct            -0.0602 [-0.0828, -0.0376] (boot [-0.0841, -0.0399]) 6/37/74 (n=117)
+    front_recovery    -2.6355 [-3.2725, -1.9985] (boot [-3.2908, -2.0213]) 4/37/76 (n=117)
+
+[C7] mean HV % of the output set (hard articles) at 175 / 500 / 1,000 / 1,480 evaluations: MOWOA (all five mechanisms) 99.17 / 99.72 / 99.83 / 99.86; MOWOA without archive (-A) 99.01 / 99.70 / 99.82 / 99.86; MOWOA without elitist survival (-E) 99.14 / 99.74 / 99.85 / 99.88; MOWOA without per-whale guide (-G) 99.14 / 99.72 / 99.83 / 99.85; MOWOA without V-transfer (-V) 99.05 / 99.73 / 99.86 / 99.90; MOWOA without local search (-LS) 90.52 / 93.52 / 94.95 / 95.23; Random sampling + archive 91.66 / 94.37 / 96.24 / 97.18; Swap search 96.98 / 99.31 / 99.82 / 99.93

@@ -1,0 +1,11 @@
+# optimizer study + ROUGE (CPU): Phase D, WP1 (without IndoBERT), WP2, WP4, WP5, WP6
+# only the versions recorded in the run logs are pinned (README §4)
+numpy
+scipy
+pandas
+matplotlib
+networkx
+scikit-learn
+pymoo==0.6.2
+rouge-score==0.1.2
+kagglehub

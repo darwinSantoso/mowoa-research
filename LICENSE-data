@@ -1,0 +1,20 @@
+The files in data/ and results/ are licensed under the Creative Commons
+Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).
+
+  Summary:    https://creativecommons.org/licenses/by-sa/4.0/
+  Legal code: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+These files are derived from the IndoSum dataset, which is licensed under CC BY-SA 4.0:
+
+  Kurniawan, K., & Louvan, S. (2018). IndoSum: A new benchmark dataset for Indonesian
+  text summarization. In 2018 International Conference on Asian Language Processing
+  (IALP) (pp. 215-220). IEEE. https://doi.org/10.1109/IALP.2018.8629109
+  https://github.com/kata-ai/indosum
+
+Changes made: data/wp1_ids.csv lists the id, category and source fields of the first
+150 articles of test.01.jsonl. The files in results/ contain numbers computed on those
+articles (ROUGE scores, optimizer indicators). No article text or reference summary is
+included.
+
+The code in src/, notebooks/ and tools/ is licensed separately under the MIT License
+(see LICENSE).
